@@ -1,3 +1,4 @@
+
 package ca.blakey.monte_carlo.model;
 
 import java.awt.Button;
@@ -97,7 +98,7 @@ public class Controller_Pi implements Initializable, ControlledScreen {
 			// currentNumThreads.setText(numThreadsInput.getText());
 		} catch (NumberFormatException e) {
 			// StatusLabel.setText("Please enter an integer");
-			System.out.println("You did not enter an integer");
+			threadLabel.setText("You did not enter an integer");
 			throw (e);
 		}
 		System.out.println(numThreads);
@@ -119,9 +120,8 @@ public class Controller_Pi implements Initializable, ControlledScreen {
 			// currentNumTrials.setText(numTrialsInput.getText());
 			System.out.println(numTrials);
 		} catch (NumberFormatException e) {
-			StatusLabel.setText("Please enter an integer");
-			StatusLabel.setFill(Color.FIREBRICK);
-			System.out.println("You did not enter an integer");
+			trialsLabel.setText("Please enter an integer");
+	       System.out.println("You did not enter an integer");
 			throw (e);
 		}
 	}
@@ -140,8 +140,11 @@ public class Controller_Pi implements Initializable, ControlledScreen {
 	public void simulateClicked() throws Exception {
 
 		try {
+			threadLabel.setText("");
+			trialsLabel.setText("");
 			setNumTrialsClicked();
 			setNumThreadsClicked();
+			
 
 			if (numTrials < 1) {
 				throw new NumberFormatException();
@@ -151,14 +154,15 @@ public class Controller_Pi implements Initializable, ControlledScreen {
 			}
 			if (numThreads >= 1000) {
 				threadLabel.setText("too many threads");
-				throw new Exception();
+				throw new NumberFormatException();
 			}
 		} catch (NumberFormatException e) {
 			return;
 		} catch (Exception e) {
-			StatusLabel.setText("That is too many threads!!");
-			StatusLabel.setFill(Color.FIREBRICK);
+			threadLabel.setText("That is too many threads!!");
+			//StatusLabel.setFill(Color.FIREBRICK);
 		}
+		
 		MCRunnerNoAWS mCRunner = new MCRunnerNoAWS(numThreads, numTrials, 2, "piSimulation");
 		valueOfPi.textProperty().bind(mCRunner.valueProperty().asString());
 		piProgressBar.progressProperty().bind(mCRunner.progressProperty());
