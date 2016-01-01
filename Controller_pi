@@ -98,8 +98,8 @@ public class Controller_Pi implements Initializable, ControlledScreen {
 			// currentNumThreads.setText(numThreadsInput.getText());
 		} catch (NumberFormatException e) {
 			// StatusLabel.setText("Please enter an integer");
-			threadLabel.setText("You did not enter an integer");
-			throw (e);
+			threadLabel.setText("please   enter an integer");
+			
 		}
 		System.out.println(numThreads);
 	}
@@ -122,7 +122,7 @@ public class Controller_Pi implements Initializable, ControlledScreen {
 		} catch (NumberFormatException e) {
 			trialsLabel.setText("Please enter an integer");
 	       System.out.println("You did not enter an integer");
-			throw (e);
+			
 		}
 	}
 
