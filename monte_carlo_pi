@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
@@ -43,14 +44,17 @@
                     <HBox prefHeight="28.0" prefWidth="432.0">
                       <children>
                         <Label prefHeight="25.0" prefWidth="120.0" text="Number of Threads: " />
-                        <TextField fx:id="numThreadsInput" text="4" />
+                        <TextField fx:id="numThreadsInput" prefWidth="140.9998779296875" text="4" />
                       </children>
                     </HBox>
                     <HBox prefHeight="30.0" prefWidth="311.0">
                       <children>
                         <Label prefHeight="24.0" prefWidth="120.0" text="Number of Trials: " />
-                        <TextField fx:id="numTrialsInput" text="100000" />
-                        <Text fx:id="trialsLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <TextField fx:id="numTrialsInput" minHeight="-1.0" minWidth="-1.0" prefWidth="140.9998779296875" text="100000">
+                          <HBox.margin>
+                            <Insets />
+                          </HBox.margin>
+                        </TextField>
                       </children>
                     </HBox>
                     <HBox prefHeight="28.0" prefWidth="311.0">
@@ -86,7 +90,16 @@
                 </VBox>
               </children>
             </StackPane>
-            <Text fx:id="threadLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+            <Text fx:id="trialsLabel" scaleX="1.0000043137660903" scaleY="1.5675467586440281" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="LEFT" x="80.0" y="0.0">
+              <HBox.margin>
+                <Insets top="30.0" />
+              </HBox.margin>
+            </Text>
+            <Text fx:id="threadLabel" scaleX="1.0000007799137542" scaleY="0.9982645382155361" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" x="-10.0">
+              <HBox.margin>
+                <Insets left="-16.0" />
+              </HBox.margin>
+            </Text>
           </children>
         </HBox>
       </bottom>
