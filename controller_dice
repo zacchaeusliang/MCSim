@@ -2,6 +2,7 @@ package ca.blakey.monte_carlo.model;
 
 
 import java.awt.Button;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -49,9 +51,11 @@ public class Controller_Dice implements Initializable, ControlledScreen {
 	@FXML
 	private Text avgSum;
 	@FXML
-	private Text statusLabelDice;
+	private Text trialLabelDice;
 	@FXML
-	private Text finishLabelDice;
+	private Text diceLabelDice;
+	@FXML
+	private Text threadLabelDice;
 	@FXML
 	private ProgressBar diceProgressBar;
 
@@ -77,16 +81,16 @@ public class Controller_Dice implements Initializable, ControlledScreen {
 	 * numThreads to this value. Should the input text in the text box be something
 	 * other than an integer this method writes "Please enter an integer" on the GUI.
 	 */
-	public void setNumThreadsClickedDice() {
+	public void setNumThreadsClickedDice(){
 		try {
 		
 			numThreads = Integer.parseInt(numThreadsInDice.getText());
 			if(numThreads<1){
-				statusLabelDice.setText("The threads have to be greater than one");
+				threadLabelDice.setText("The threads have to be greater than one");
 			}
 			// numThreadsDice.setText(numThreadsInDice.getText());
 		} catch (NumberFormatException e) {
-			statusLabelDice.setText("Please enter an integer");
+			threadLabelDice.setText("Please enter an integer");
 			System.out.println("You did not enter an integer");
 		}
 		System.out.println(numThreads);
@@ -98,19 +102,20 @@ public class Controller_Dice implements Initializable, ControlledScreen {
 	 * numTrials to this value. Should the input text in the text box be something
 	 * other than an integer this method writes "Please enter an integer" on the GUI.
 	 */
-	public void setNumTrialsClickedDice() {
+	public void setNumTrialsClickedDice()  {
 		try {
 			
 			numTrials = Long.parseLong(numTrialsInDice.getText());
 			// numTrialsDice.setText(numTrialsInDice.getText());
 			if(numTrials<1){
-				statusLabelDice.setText("Please enter a whole integers greater than one");
+		
+			trialLabelDice.setText("Please enter a whole integers greater than one");
 			}
 			
 			System.out.println(numTrials);
 		} catch (NumberFormatException e) {
-			statusLabelDice.setText("Please enter an integer");
-			statusLabelDice.setFill(Color.FIREBRICK);
+			trialLabelDice.setText("Please enter an integer");
+			trialLabelDice.setFill(Color.FIREBRICK);
 			System.out.println("You did not enter an integer");
 		}
 	}
@@ -126,12 +131,12 @@ public class Controller_Dice implements Initializable, ControlledScreen {
 			
 			numDice = Integer.parseInt(numDiceInDice.getText());
 			if(numDice<1){
-				statusLabelDice.setText("The number of dice has to equal to or greater than one");
+				diceLabelDice.setText("The number of dice has to equal to or greater than one");
 			}
 			// numDiceDice.setText(numDiceInDice.getText());
 		} catch (NumberFormatException e) {
-			statusLabelDice.setText("Please enter an integer");
-			statusLabelDice.setFill(Color.FIREBRICK);
+			diceLabelDice.setText("Please enter an integer");
+			diceLabelDice.setFill(Color.FIREBRICK);
 			System.out.println("You did not enter an integer");
 		}
 	}
@@ -147,14 +152,16 @@ public class Controller_Dice implements Initializable, ControlledScreen {
 	 */
 	public void simulateDiceClicked() throws Exception {
 		try {
-			
+			diceLabelDice.setText("");
+			trialLabelDice.setText("");
+		    threadLabelDice.setText("");
 			setNumTrialsClickedDice();
 			setNumThreadsClickedDice();
 			setNumDiceClickedDice();
 			if(numThreads <1){
 				throw new NumberFormatException();
 			}if(numThreads >1000){
-				statusLabelDice.setText("Too many Threads!!");
+				threadLabelDice.setText("Too many Threads!!");
 				throw new NumberFormatException();					
 			}
 			if(numTrials <1){
@@ -166,6 +173,7 @@ public class Controller_Dice implements Initializable, ControlledScreen {
 		} catch (NumberFormatException e) {
 			return;
 		}
+		
 
 		MCRunnerNoAWS mCRunner = new MCRunnerNoAWS(numThreads, numTrials, numDice, "diceRoll");
 		diceProgressBar.progressProperty().bind(mCRunner.progressProperty());
@@ -174,7 +182,7 @@ public class Controller_Dice implements Initializable, ControlledScreen {
 		workingThread.setDaemon(true);
 		workingThread.start();
 
-		finishLabelDice.setText("Finished");
+		//finishLabelDice.setText("Finished");
 	}
 
 	/* (non-Javadoc)
@@ -186,4 +194,3 @@ public class Controller_Dice implements Initializable, ControlledScreen {
 
 	}
 }
-
