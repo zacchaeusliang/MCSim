@@ -2,21 +2,20 @@ package ca.blakey.monte_carlo.model;
 
 
 import java.awt.Button;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
+import ca.blakey.monte_carlo.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import ca.blakey.monte_carlo.Main;
-import ca.blakey.monte_carlo.model.ScreensController;
 
 /**
  * @author phill_000
@@ -51,14 +50,19 @@ public class Controller_Dice implements Initializable, ControlledScreen {
 	@FXML
 	private Text avgSum;
 	@FXML
-	private Text trialLabelDice;
+	private Label trialLabelDice;
 	@FXML
-	private Text diceLabelDice;
+	private Label diceLabelDice;
 	@FXML
-	private Text threadLabelDice;
+	private Label threadLabelDice;
+	@FXML
+	private Text finishLabelDice;
 	@FXML
 	private ProgressBar diceProgressBar;
+	@FXML
+	private Button descriptionDialog;
 
+	
 	/* (non-Javadoc)
 	 * @see ca.blakey.monte_carlo.model.ControlledScreen#setScreenParent(ca.blakey.monte_carlo.model.ScreensController)
 	 */
@@ -115,7 +119,7 @@ public class Controller_Dice implements Initializable, ControlledScreen {
 			System.out.println(numTrials);
 		} catch (NumberFormatException e) {
 			trialLabelDice.setText("Please enter an integer");
-			trialLabelDice.setFill(Color.FIREBRICK);
+			trialLabelDice.setTextFill(Color.FIREBRICK);
 			System.out.println("You did not enter an integer");
 		}
 	}
@@ -136,11 +140,20 @@ public class Controller_Dice implements Initializable, ControlledScreen {
 			// numDiceDice.setText(numDiceInDice.getText());
 		} catch (NumberFormatException e) {
 			diceLabelDice.setText("Please enter an integer");
-			diceLabelDice.setFill(Color.FIREBRICK);
+			diceLabelDice.setTextFill(Color.FIREBRICK);
 			System.out.println("You did not enter an integer");
 		}
 	}
+	public void descriptionDialogClicked() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+        String titleTxt="HELLO";
+		alert.setTitle(titleTxt);
+		alert.setHeaderText("dice simulation");
+		String s = " Calculates the adverage of a certian number of  dice ";
+		alert.setContentText(s);
+		alert.show();
 
+	}
 	/**
 	 * @throws Exception 
 	 * This method runs when the simulate button is clicked. This method runs the three
@@ -152,9 +165,9 @@ public class Controller_Dice implements Initializable, ControlledScreen {
 	 */
 	public void simulateDiceClicked() throws Exception {
 		try {
-			diceLabelDice.setText("");
-			trialLabelDice.setText("");
-		    threadLabelDice.setText("");
+			diceLabelDice.setText("a");
+			trialLabelDice.setText("b");
+		    threadLabelDice.setText("c");
 			setNumTrialsClickedDice();
 			setNumThreadsClickedDice();
 			setNumDiceClickedDice();
@@ -182,7 +195,7 @@ public class Controller_Dice implements Initializable, ControlledScreen {
 		workingThread.setDaemon(true);
 		workingThread.start();
 
-		//finishLabelDice.setText("Finished");
+		finishLabelDice.setText("Finished");
 	}
 
 	/* (non-Javadoc)
@@ -194,3 +207,6 @@ public class Controller_Dice implements Initializable, ControlledScreen {
 
 	}
 }
+
+
+
