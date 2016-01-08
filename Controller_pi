@@ -1,80 +1,76 @@
 
 package ca.blakey.monte_carlo.model;
-
 import java.awt.Button;
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
+import ca.blakey.monte_carlo.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import ca.blakey.monte_carlo.Main;
-import ca.blakey.monte_carlo.model.ScreensController;
 
 /**
- * @author phill_000 Copyright (c) <2015> <Phillip Blakey>
+ * @author phill_000
+ *Copyright (c) <2015> <Phillip Blakey>
  *
- *         This Class is the controller class for the Pi calculation simulation
- *         screen. It contains all the methods that are called when a user
- *         interacts with the GUI for the Pi calculation Simulation.
- * 
+ * This Class is the controller class for the Dice simulation screen. It contains
+ * all the methods that are called when a user interacts with the GUI for the Dice
+ * Simulation.
  */
-public class Controller_Pi implements Initializable, ControlledScreen {
+public class Controller_Dice implements Initializable, ControlledScreen {
 
 	ScreensController myController;
 
 	private int numThreads = 0;
 	private long numTrials = 0;
-	private double pi;
+	private int numDice = 0;
+	
+	@FXML
+	private VBox DiceVBox;
+	@FXML
+	private TextField numTrialsInDice;
+	@FXML
+	private TextField numThreadsInDice;
+	@FXML
+	private TextField numDiceInDice;
+	@FXML
+	private Text numTrialsDice;
+	@FXML
+	private Text numThreadsDice;
+	@FXML
+	private Text numDiceDice;
+	@FXML
+	private Text avgSum;
+	@FXML
+	private Label trialLabelDice;
+	@FXML
+	private Label diceLabelDice;
+	@FXML
+	private Label threadLabelDice;
+	@FXML
+	private Text finishLabelDice;
+	@FXML
+	private ProgressBar diceProgressBar;
+	@FXML
+	private Button descriptionDialog;
 
-	@FXML
-	private Button buttonSetThreads;
-	@FXML
-	private TextField numThreadsInput;
-	@FXML
-	private Button buttonSetTrials;
-	@FXML
-	private TextField numTrialsInput;
-	@FXML
-	private Button Simulate;
-	@FXML
-	private Text currentNumThreads;
-	@FXML
-	private Text currentNumTrials;
-	@FXML
-	private Text valueOfPi;
-	@FXML
-	private VBox PiVBox;
-	@FXML
-	private Text StatusLabel;
-	@FXML
-	private Text finishLabel;
-	@FXML
-	private Text trialsLabel;
-	@FXML
-	private Text threadLabel;
-
-	@FXML
-	private ProgressBar piProgressBar;
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * ca.blakey.monte_carlo.model.ControlledScreen#setScreenParent(ca.blakey.
-	 * monte_carlo.model.ScreensController)
+	
+	/* (non-Javadoc)
+	 * @see ca.blakey.monte_carlo.model.ControlledScreen#setScreenParent(ca.blakey.monte_carlo.model.ScreensController)
 	 */
 	public void setScreenParent(ScreensController screenParent) {
 		myController = screenParent;
 	}
 
 	/**
-	 * This method is run when the back to main button is clicked. This sets the
+	 * This method is run when the back to main button is clicked. This sets the 
 	 * screen to the home screen(initial screen).
 	 */
 	@FXML
@@ -83,105 +79,132 @@ public class Controller_Pi implements Initializable, ControlledScreen {
 	}
 
 	/**
-	 * This method is run when the simulate button is clicked. This method takes
-	 * an integer from the text box, Number of Threads, and sets the private
-	 * variable numThreads to this value. Should the input text in the text box
-	 * be something other than an integer this method writes
-	 * "Please enter an integer" on the GUI.
+	 * This method is run when the simulate button is clicked. This method takes 
+	 * an integer from the text box, Number of Threads, and sets the private variable
+	 * numThreads to this value. Should the input text in the text box be something
+	 * other than an integer this method writes "Please enter an integer" on the GUI.
 	 */
-	public void setNumThreadsClicked() {
+	public void setNumThreadsClickedDice(){
 		try {
-			numThreads = Integer.parseInt(numThreadsInput.getText());
-			if (numThreads < 1) {
-				threadLabel.setText("For threads integers equal to or greater than one");
+		
+			numThreads = Integer.parseInt(numThreadsInDice.getText());
+			if(numThreads<1){
+				threadLabelDice.setText("The threads have to be greater than one");
 			}
-			// currentNumThreads.setText(numThreadsInput.getText());
+			// numThreadsDice.setText(numThreadsInDice.getText());
 		} catch (NumberFormatException e) {
-			// StatusLabel.setText("Please enter an integer");
-			threadLabel.setText("please   enter an integer");
-			
+			threadLabelDice.setText("Please enter an integer");
+			System.out.println("You did not enter an integer");
 		}
 		System.out.println(numThreads);
 	}
 
 	/**
-	 * This method is run when the simulate button is clicked. This method takes
-	 * an integer from the text box, Number of Trials, and sets the private
-	 * variable numTrials to this value. Should the input text in the text box
-	 * be something other than an integer this method writes
-	 * "Please enter an integer" on the GUI.
+	 * This method is run when the simulate button is clicked. This method takes 
+	 * an integer from the text box, Number of Trials, and sets the private variable
+	 * numTrials to this value. Should the input text in the text box be something
+	 * other than an integer this method writes "Please enter an integer" on the GUI.
 	 */
-	public void setNumTrialsClicked() {
+	public void setNumTrialsClickedDice()  {
 		try {
-			numTrials = Long.parseLong(numTrialsInput.getText());
-			if (numTrials < 1) {
-				trialsLabel.setText("For trials enter integers equal to or greater than one");
+			
+			numTrials = Long.parseLong(numTrialsInDice.getText());
+			// numTrialsDice.setText(numTrialsInDice.getText());
+			if(numTrials<1){
+		
+			trialLabelDice.setText("Please enter a whole integers greater than one");
 			}
-			// currentNumTrials.setText(numTrialsInput.getText());
+			
 			System.out.println(numTrials);
 		} catch (NumberFormatException e) {
-			trialsLabel.setText("Please enter an integer");
-	       System.out.println("You did not enter an integer");
-			
+			trialLabelDice.setText("Please enter an integer");
+			trialLabelDice.setTextFill(Color.FIREBRICK);
+			System.out.println("You did not enter an integer");
 		}
 	}
 
 	/**
-	 * @throws Exception
-	 * 
-	 *             This method runs when the simulate button is clicked. This
-	 *             method runs the two methods setNumTrialsClicked, and
-	 *             setNumThreadsClicked. The method then creates an instance of
-	 *             MCRunner, binds the piProgressBar to mCRunner's progress
-	 *             property, binds the valueOfPi variable to mCRunner's value
-	 *             property creates a new thread, makes this thread a Daemon
-	 *             thread, then runs this thread.
+	 * This method is run when the simulate button is clicked. This method takes 
+	 * an integer from the text box, Number of Dice, and sets the private variable
+	 * numDice to this value. Should the input text in the text box be something
+	 * other than an integer this method writes "Please enter an integer" on the GUI.
 	 */
-	public void simulateClicked() throws Exception {
-
+	public void setNumDiceClickedDice() {
 		try {
-			threadLabel.setText("");
-			trialsLabel.setText("");
-			setNumTrialsClicked();
-			setNumThreadsClicked();
 			
+			numDice = Integer.parseInt(numDiceInDice.getText());
+			if(numDice<1){
+				diceLabelDice.setText("The number of dice has to equal to or greater than one");
+			}
+			// numDiceDice.setText(numDiceInDice.getText());
+		} catch (NumberFormatException e) {
+			diceLabelDice.setText("Please enter an integer");
+			diceLabelDice.setTextFill(Color.FIREBRICK);
+			System.out.println("You did not enter an integer");
+		}
+	}
+	public void descriptionDialogClicked() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+        String titleTxt="HELLO";
+		alert.setTitle(titleTxt);
+		alert.setHeaderText("dice simulation");
+		String s = " Calculates the adverage of a certian number of  dice ";
+		alert.setContentText(s);
+		alert.show();
 
-			if (numTrials < 1) {
+	}
+	/**
+	 * @throws Exception 
+	 * This method runs when the simulate button is clicked. This method runs the three
+	 * methods setNumTrialsClickedDice, setNumThreadsClickedDice, and setNumDiceClickedDice.
+	 * The method then creates an instance of MCRunner, binds the diceProgressBar to 
+	 * mCRunner's progress property, binds the average sum variable to mCRunner's value
+	 * property creates a new thread, makes this thread a Daemon thread,
+	 *  then runs this thread. 
+	 */
+	public void simulateDiceClicked() throws Exception {
+		try {
+			diceLabelDice.setText("a");
+			trialLabelDice.setText("b");
+		    threadLabelDice.setText("c");
+			setNumTrialsClickedDice();
+			setNumThreadsClickedDice();
+			setNumDiceClickedDice();
+			if(numThreads <1){
+				throw new NumberFormatException();
+			}if(numThreads >1000){
+				threadLabelDice.setText("Too many Threads!!");
+				throw new NumberFormatException();					
+			}
+			if(numTrials <1){
 				throw new NumberFormatException();
 			}
-			if (numThreads < 1) {
-				throw new NumberFormatException();
-			}
-			if (numThreads >= 1000) {
-				threadLabel.setText("too many threads");
+			if(numDice <1){
 				throw new NumberFormatException();
 			}
 		} catch (NumberFormatException e) {
 			return;
-		} catch (Exception e) {
-			threadLabel.setText("That is too many threads!!");
-			//StatusLabel.setFill(Color.FIREBRICK);
 		}
 		
-		MCRunnerNoAWS mCRunner = new MCRunnerNoAWS(numThreads, numTrials, 2, "piSimulation");
-		valueOfPi.textProperty().bind(mCRunner.valueProperty().asString());
-		piProgressBar.progressProperty().bind(mCRunner.progressProperty());
+
+		MCRunnerNoAWS mCRunner = new MCRunnerNoAWS(numThreads, numTrials, numDice, "diceRoll");
+		diceProgressBar.progressProperty().bind(mCRunner.progressProperty());
+		avgSum.textProperty().bind(mCRunner.valueProperty().asString());
 		Thread workingThread = new Thread(mCRunner);
 		workingThread.setDaemon(true);
 		workingThread.start();
-		finishLabel.setText("Finished");
 
+		finishLabelDice.setText("Finished");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javafx.fxml.Initializable#initialize(java.net.URL,
-	 * java.util.ResourceBundle)
+	/* (non-Javadoc)
+	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
-	}	
+
+	}
 }
+
+
