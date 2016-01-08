@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="ca.blakey.monte_carlo.model.Controller_Dice">
+<VBox maxHeight="-1.0" maxWidth="1.7976931348623157E308" minHeight="-1.0" minWidth="-1.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="ca.blakey.monte_carlo.model.Controller_Dice">
   <children>
     <HBox prefHeight="0.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
       <children>
@@ -33,34 +34,29 @@
       </children>
     </HBox>
     <BorderPane VBox.vgrow="ALWAYS">
-      <bottom>
+      <center>
         <HBox prefHeight="281.0" prefWidth="600.0" BorderPane.alignment="CENTER">
           <children>
             <StackPane prefHeight="150.0" prefWidth="200.0">
               <children>
-                <VBox fx:id="DiceVBox" prefHeight="281.0" prefWidth="254.068359375">
+                <VBox fx:id="DiceVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="289.0">
                   <children>
                     <HBox>
                       <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Threads: " />
-                        <TextField fx:id="numThreadsInDice" onAction="#setNumThreadsClickedDice" prefWidth="77.0" text="4" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" />
-                        <Text fx:id="numThreadsDice" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <TextField fx:id="numThreadsInDice" onAction="#setNumThreadsClickedDice" prefWidth="121.0" text="4" />
                       </children>
                     </HBox>
                     <HBox>
                       <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Trials: " wrappingWidth="94.32421875" />
                         <TextField fx:id="numTrialsInDice" onAction="#setNumTrialsClickedDice" onInputMethodTextChanged="#setNumTrialsClickedDice" text="100000" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" />
-                        <Text fx:id="numTrialsDice" strokeType="OUTSIDE" strokeWidth="0.0" />
                       </children>
                     </HBox>
                     <HBox>
                       <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Dice: " wrappingWidth="94.13671875" />
                         <TextField fx:id="numDiceInDice" onAction="#setNumDiceClickedDice" text="2" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" />
                         <Text fx:id="numDiceDice" strokeType="OUTSIDE" strokeWidth="0.0" />
                       </children>
                     </HBox>
@@ -72,16 +68,27 @@
                       </children>
                     </HBox>
                     <ProgressBar fx:id="diceProgressBar" prefWidth="200.0" progress="0.0" />
-                    <Button mnemonicParsing="false" onAction="#backToMain" text="Return Home" />
-                    <Text fx:id="finishLabelDice" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                    <Button mnemonicParsing="false" onAction="#backToMain" prefHeight="22.0" text="Return Home" />
+                    <Text fx:id="finishLabelDice" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
+                    <Button minHeight="15.3104248046875" mnemonicParsing="false" onMousePressed="#descriptionDialogClicked" prefHeight="26.0" prefWidth="184.0" text="simulation description" VBox.vgrow="NEVER">
+                      <VBox.margin>
+                        <Insets bottom="-10.0" left="110.0" top="-38.0" />
+                      </VBox.margin>
+                    </Button>
                   </children>
                 </VBox>
               </children>
             </StackPane>
-            <Text fx:id="statusLabelDice" scaleX="0.7769648143061602" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="404.13671875" />
+            <VBox maxWidth="150.0" prefHeight="-1.0" prefWidth="-1.0" spacing="12.0" HBox.hgrow="SOMETIMES">
+              <children>
+                <Label id="trialLabelDice" fx:id="threadLabelDice" minHeight="-Infinity" minWidth="-Infinity" prefWidth="250.0" text="Label" VBox.vgrow="ALWAYS" />
+                <Label id="threadLabelDice" fx:id="trialLabelDice" prefWidth="250.0" text="Label" VBox.vgrow="SOMETIMES" />
+                <Label id="" fx:id="diceLabelDice" maxWidth="-1.0" minHeight="13.999908447265625" prefHeight="13.999908447265625" prefWidth="250.0" text="Label" VBox.vgrow="NEVER" />
+              </children>
+            </VBox>
           </children>
         </HBox>
-      </bottom>
+      </center>
       <top>
         <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
           <children>
