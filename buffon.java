@@ -4,7 +4,9 @@ package ca.blakey.monte_carlo.model;
 
 
 public class Buffon extends Measure {
-
+// this is the buffon needle simulation which calculates pi .
+// this lays a bunch of needles with  (normalizes them) and will check if they are before 0 and 1 
+// if the 2 needles co ordinates round it will be a cross. The value of pi is calculated with trials*2/crosses
 
 	@Override
 	double Call(double[] input) {
