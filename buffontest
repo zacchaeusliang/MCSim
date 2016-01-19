@@ -1,0 +1,23 @@
+package ca.blakey.monte_carlo.model;
+
+public class Buffontest {
+
+// this tests the buffon neddle simulation by generating random numbers and 
+//using the buffon neddle simulation method to check crosses
+  public static void main(String[]args) {
+		 double trials = 1000000;
+		double sucesses=0;
+		Buffon buffon= new Buffon();
+		for( int i=0;i<trials; i++){
+			double [] arrayinput ={Math.random(),Math.random(),Math.random(),Math.random()};
+			if(buffon.Call(arrayinput)==1.0){
+				sucesses++;
+			}			
+		}
+		
+		double pi= trials *2.0/sucesses;
+		System.out.println(pi);
+		
+	}
+
+}
