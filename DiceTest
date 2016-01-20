@@ -21,3 +21,4 @@ package ca.blakey.monte_carlo.model;  
 	        DiceRoll diceRoll = new DiceRoll();  
 	        double [] arrayInput = {0.1};  
 	        assertEquals(diceRoll.Call(arrayInput), 2, 0.0);  
+}
