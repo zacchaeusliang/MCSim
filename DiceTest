@@ -1,23 +1,23 @@
-	package ca.blakey.monte_carlo.model;
-	import static org.junit.Assert.*;
-  import java.security.NoSuchAlgorithmException;
-  import org.junit.Test;
+package ca.blakey.monte_carlo.model;  
+	import static org.junit.Assert.*;  
+	import java.security.NoSuchAlgorithmException;  
+	import org.junit.Test;  
 	/** 
 	* <h1>Dice roll test</h1> 
 	* This checks if the number will correspond to the correct integer value. 
-  * It will check if the double given in the arrayInput will correspond into to correct 
+	* It will check if the double given in the arrayInput will correspond into to correct 
 	* value for 0.1 (which is 1). 
-	
-	
-	
-	@author Zacchaeus leung 
-	@version 1.0 
-  @since 2014-12-5
-*/
-	public class DiceMeasureTest{
-	@Test
-public void test()throwsNoSuchAlgorithmException,InterruptedException{
-DiceRolldiceRoll=newDiceRoll();
-	double[]arrayInput={0.1};
-assertEquals(diceRoll.Call(arrayInput),2,0.0);
-	}
+	*  
+	*  
+	 
+	* @author Zacchaeus leung 
+	* @version 1.0 
+	* @since   2014-12-5  
+	*/  
+	public class DiceMeasureTest {  
+	      
+	    @Test  
+	    public void test() throws NoSuchAlgorithmException, InterruptedException {  
+	        DiceRoll diceRoll = new DiceRoll();  
+	        double [] arrayInput = {0.1};  
+	        assertEquals(diceRoll.Call(arrayInput), 2, 0.0);  
