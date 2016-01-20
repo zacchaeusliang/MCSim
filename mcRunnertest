@@ -1,0 +1,141 @@
+package ca.blakey.monte_carlo.model;  
+	  
+	import ca.blakey.monte_carlo.model.*;  
+	  
+	import static org.junit.Assert.*;  
+	  
+	import java.security.NoSuchAlgorithmException;  
+	  
+	import org.junit.Test;  
+	  
+	/** 
+	 * <h1>McRunner test</h1> 
+	 *  
+	 * This is the McRunner test. this will test if the methods in mcRunner work. 
+	 * The tests include successes (hits), mean, variance, standard deviation and 
+	 * the thread lifetimes. 
+	 *  
+	 * @throws NoSuchAlgroithm 
+	 * @author Zacchaeus Leung 
+	 * @version 1.0 
+	 * @since 2015-12-5 
+	 */  
+	public class MCRunnerNoAWSTest {  
+	  
+	    @Test  
+	    public void Basictest() throws Exception {  
+	        int numThreads = 1;  
+	        int numTrials = 1;  
+	        int numVariables = 2;  
+	        MCRunnerNoAWS mCRunner;  
+	        try {// call a instance of mcRunner  
+	            mCRunner = new MCRunnerNoAWS(numThreads, numTrials, numVariables, "DiceRoll");  
+	            mCRunner.call();// runs the simulation  
+	            // make object to store the results  
+	            ResultStore resultStore = mCRunner.getResultStore();  
+	            double successes = 0;  
+	            for (int i = 0; i < mCRunner.getNumThreads(); i++) {  
+	                long seed = mCRunner.getSeedArray().getSeed(i);  
+	                Result result = resultStore.Get(seed);  
+	                // stores sucesses  
+	                double tempSuccesses = result.getSuccesses();  
+	                successes = successes + (tempSuccesses);  
+	                assertTrue(successes >= 0);// asserts that the sucesses are not 0  
+	                                              
+	            }  
+	        } catch (NoSuchAlgorithmException | InterruptedException e) {  
+	            e.printStackTrace();  
+	        }  
+	    }// tests mean  
+	  
+	    @Test  
+	    public void meantest() throws Exception {  
+	        int numThreads = 1;  
+	        int numTrials = 1;  
+	        int numVariables = 2;  
+	        MCRunnerNoAWS mCRunner;  
+	        try {  
+	            mCRunner = new MCRunnerNoAWS(numThreads, numTrials, numVariables, "piSimulation");  
+	            mCRunner.call();// simulates 
+	  
+	            ResultStore resultStore = mCRunner.getResultStore();  
+	  
+	            for (int i = 0; i < mCRunner.getNumThreads(); i++) {  
+	                long seed = mCRunner.getSeedArray().getSeed(i);  
+	                Result result = resultStore.Get(seed);  
+	               // all follow the similar format testing if the  
+	                double tempMean = result.getMean();  
+	                double mean = tempMean;  
+	                assertTrue(tempMean >= 0);  
+	            }  
+	        } catch (NoSuchAlgorithmException | InterruptedException e) {  
+	            e.printStackTrace();  
+	        }  
+	    }  
+	  
+	    @Test // test variance  
+	    public void Variancetest() throws Exception {  
+	        int numThreads = 1;  
+	        int numTrials = 1;  
+	        int numVariables = 2;  
+	        MCRunnerNoAWS mCRunner;  
+	        try {  
+	            mCRunner = new MCRunnerNoAWS(numThreads, numTrials, numVariables, "piSimulation");  
+	            mCRunner.call();  
+	  
+	            ResultStore resultStore = mCRunner.getResultStore();  
+	  
+	            for (int i = 0; i < mCRunner.getNumThreads(); i++) {  
+	                long seed = mCRunner.getSeedArray().getSeed(i);  
+	                Result result = resultStore.Get(seed);  
+	  
+	                double tempVariance = result.getVariance();  
+	  
+	                assertTrue(tempVariance >= 0);  
+	            }  
+	        } catch (NoSuchAlgorithmException | InterruptedException e) {  
+	            e.printStackTrace();  
+	        }  
+	    }  
+	  
+	    @Test // tests standard deviation  
+	    public void Stdtest() throws Exception {  
+	        int numThreads = 1;  
+	        int numTrials = 1;  
+	        int numVariables = 2;  
+	        MCRunnerNoAWS mCRunner;  
+	        try {  
+	            mCRunner = new MCRunnerNoAWS(numThreads, numTrials, numVariables, "piSimulation");  
+	            mCRunner.call();  //calls the simulation
+	  
+	            ResultStore resultStore = mCRunner.getResultStore();  
+	  // check std	 
+	            for (int i = 0; i < mCRunner.getNumThreads(); i++) {  
+	                long seed = mCRunner.getSeedArray().getSeed(i);  
+	                Result result = resultStore.Get(seed);  
+	  // stores std
+	                double tempStd = result.getStd();  
+	                assertTrue(tempStd >= 0);  
+	            }  
+	        } catch (NoSuchAlgorithmException | InterruptedException e) {  
+	            e.printStackTrace();  
+	        }  
+	    }  
+	  
+	    @Test // tests thread lifetimes It compares the simulation end times to see if the end at the same time.   
+	    public void checkThreadEnd() throws Exception {  
+	        int numThreads = 4;  
+	        int numTrials = 1;  
+	        int numVariables = 2;  
+	  
+	        MCRunnerNoAWS mCRunner;  
+	        try {  
+	            mCRunner = new MCRunnerNoAWS(numThreads, numTrials, numVariables, "piSimulator");  
+	            mCRunner.call();// as it runs the array of mcs instances will stores the end times   
+	  
+	            assertEquals(mCRunner.getEndTimes(1), mCRunner.getEndTimes(2), 0.0000001);// compares the endtimes  
+	  
+	        } catch (NoSuchAlgorithmException | InterruptedException e) {  
+	            e.printStackTrace();  
+	        }  
+	  
