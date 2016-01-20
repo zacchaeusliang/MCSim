@@ -1,9 +1,16 @@
 package ca.blakey.monte_carlo.model;
 
 public class Buffontest {
+	/** 
+	* <h1>Buffontest</h1> 
+	* this tests the buffon neddle simulation by generating random numbers and 
+        *, using the buffon neddle simulation call method to check if the needle crosses. 
+        *.The result is then checked to see if it returns a approxmation of pi
+	* @author  Zacchaeus Leung 
+	* @version 1.0 	* 
+	*.@since   2014-12-5  
+	*/  
 
-// this tests the buffon neddle simulation by generating random numbers and 
-//using the buffon neddle simulation method to check crosses
   public static void main(String[]args) {
 		 double trials = 1000000;
 		double sucesses=0;
